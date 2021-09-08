@@ -49,6 +49,17 @@ public class GamePanel extends JPanel implements ActionListener{
 		}
 		g.setColor(Color.red);
 		g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);  //drawing apple in the grid with random (x,y)
+		
+		for(int i = 0;i<bodyParts;i++) {
+			if(i == 0) {
+				g.setColor(Color.green);
+				g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+			}
+			else {
+				g.setColor(new Color(45,180,0));
+				g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+			}
+		}
 	}
 	public void newApple() {
 		appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE))*UNIT_SIZE; // giving random x cordinates
@@ -56,7 +67,28 @@ public class GamePanel extends JPanel implements ActionListener{
 		
 	} 
 	public void move() {
+		for(int i=bodyParts;i>0;i--) {
+			x[i] = x[i-1];  	//
+			y[i] = y[i-1];
+		}
 		
+		switch(direction) {
+		case 'U':
+			y[0] = y[0] - UNIT_SIZE;
+			break;
+		case 'D':
+			y[0] = y[0] + UNIT_SIZE;
+			break;
+		
+		case 'L':
+			x[0] = x[0] - UNIT_SIZE;
+			break;
+		
+		case 'R':
+			x[0] = x[0] + UNIT_SIZE;
+			break;
+		}
+	
 	}
 	public void checkApple() {
 		
